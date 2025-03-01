@@ -1,0 +1,257 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{amsmath}
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+
+\begin{document}
+
+\section*{Student Information } 
+%Write your full name and id number between the colon and newline
+%Put one empty space character after colon and before newline
+Full Name : Ömer KILINÇ \\
+Id Number :  2448603 \\
+
+% Write your answers below the section tags
+\section*{Answer 1}
+
+
+\subsection*{a)} 
+
+
+\begin{itemize}
+    
+    \item[] Sample mean:
+    \[\bar{x} = \frac{\sum x_i}{n} = \frac{6.4 + 9.5 + 8.2 + 10.2 + 7.6 + 11.1 + 8.7 + 7.3 + 9.1}{9} = 8.677\]
+
+    \item[] Standard deviation: \( \sigma = 2.7 \)
+
+    \item[] Sample size: \( n = 9 \)
+
+    \item[] \( Z_{0.025} = -1.96 \)
+
+    \item[] Margin:
+    \[    \bigtriangleup = | Z_{0.025} \times \frac{\sigma}{\sqrt{n}} | = | -1.96 \times \frac{2.7}{\sqrt{9}} | = 1.764 \]
+
+    \item[] Confidence interval:
+    \[\left( \bar{X} - \bigtriangleup, \bar{X} + \bigtriangleup \right) = (8.677 - 1.764, 8.677 + 1.764) = (6.913, 10.441)\]
+    
+\end{itemize}
+
+
+
+
+\subsection*{b)} 
+
+
+\begin{itemize}
+    
+    \item[] Margin: \( \bigtriangleup = 1.25 \)
+
+    \item[] \( Z_{0.025} = -1.96 \)
+
+    \item[] Sample size (n):
+    \[ n \ge \left( \frac{Z_{0.025} \times \sigma}{\bigtriangleup} \right)^2 = \left( \frac{-1.96 \times 2.7}{1.25} \right)^2 = 17.924 \]
+
+    \item[] \text{n must be at least 18 for a margin that is at most 1.25}
+    
+\end{itemize}
+
+
+
+
+
+\section*{Answer 2}
+
+
+\subsection*{a)} 
+
+
+\begin{itemize}
+    
+    \item[] \(H_0\): Average monthly revenue of the current year is equal to last year's revenue.
+    \[ H_0: \mu = 20000 \ \text{(Mecnun's claim)} \]
+
+    \item[] \(H_A\): Average monthly revenue of the current year is larger than last year's revenue.
+    \[ H_A: \mu > 20000 \ \text{(Leyla's claim)} \]
+
+    \item[] \text{One sided Right Tail Alternative}
+    
+\end{itemize}
+
+
+
+
+\subsection*{b)} 
+
+
+\begin{itemize}
+
+    \item[] \( \bar{X} = 22000 \)
+
+    \item[] \( \sigma = 3000 \)
+
+    \item[] \( n = 50 \)
+
+    \item[] \( Z_{0.05} = 1.645 \)
+
+    \[ Z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{22000 - 20000}{\frac{3000}{\sqrt{50}}} = \frac{2000}{424.264} = 4.716 \]
+
+    \[ Z = 4.716 > 1.645 \] 
+    \item[] \text{Reject } \(H_0\) 
+    \item[] \text{Revenue has increased.}
+    
+\end{itemize}
+
+
+
+
+\subsection*{c)} 
+
+\begin{itemize}
+
+    \item[] \[ \text{p-value} = P(Z > 4.716) \approx 0\]
+
+    \[ \text{ The p-value is almost zero which means that the threshold for } \] 
+    \[  \alpha  \text{ values that makes }   H_0   \text{ acceptable, is very high. } \]
+    \[ \text{ Strong evidience against Null Hypothesis.} \]
+    
+\end{itemize}
+
+
+
+
+\subsection*{d)} 
+
+
+\begin{itemize}
+
+    \item[] Leyla \& Mecnun:  
+    \[ \bar{X_c} = 22000 \ \ \sigma_c = 3000 \ \ n = 50 \]
+    
+    \item[] Rival:
+    \[ \bar{X_r} = 24000 \ \ \sigma_r = 4000 \ \ m = 40 \]
+
+    \item[] \(H_0\): The current average revenue of Leyla \& Mecnun is equal to the rivals.
+    \[ H_0: \mu_1 = \mu_2 \]
+
+    \item[] \(H_A\): The current average revenue of Leyla \& Mecnun is higher than the rival's.
+    \[ H_A: \mu_1 > \mu_2 \]
+
+    \[ \text{Rigth Tail alternative}\]
+
+    \[ \alpha = 0.01 \]
+
+    \[ Z_{0.01} = -2.32 \]
+    
+    \[ Z = \frac{\bar{X}_c - \bar{X}_r}{\sqrt{\frac{\sigma_c^2}{n} + \frac{\sigma_r^2}{m}}} = \frac{22000 - 24000}{\sqrt{\frac{3000^2}{50} + \frac{4000^2}{40}}} = \frac{-2000}{761.578} = -2.627 \]
+
+    
+    \[ Z = -2.627 < -2.32 \]
+    \[ \text{Accept } H_0 \]
+    \[ \text{Not enough evidence to claim that revenue is higher .}\]
+    
+\end{itemize}
+
+
+
+
+\section*{Answer 3}
+
+\begin{itemize}
+
+    \item[] Expected Frequencies:
+
+    \[ E_{ij} = \frac{(\text{row}) \times (\text{column})}{\text{total}} \]
+
+
+  \[ E_{11} = \frac{(100) \times (69)}{200} = 34.5 \]
+
+  \[ E_{12} = \frac{(100) \times (79)}{200} = 39.5 \]
+
+  \[ E_{13} = \frac{(100) \times (52)}{200} = 26.0 \]
+
+  \[ E_{21} = \frac{(100) \times (69)}{200} = 34.5 \]
+
+  \[ E_{22} = \frac{(100) \times (79)}{200} = 39.5 \]
+
+  \[ E_{23} = \frac{(100) \times (52)}{200} = 26.0 \]
+
+\item[] Chi-Square Statistic
+
+
+\[ \chi^2 = \sum \frac{(Obs_{ij} - Exp_{ij})^2}{Exp_{ij}} \]
+
+  \[
+  \frac{(52 - 34.5)^2}{34.5} = 8.87
+  \]
+
+
+  \[
+  \frac{(16 - 39.5)^2}{39.5} = 13.98
+  \]
+
+
+  \[
+  \frac{(32 - 26.0)^2}{26.0} = 1.38
+  \]
+
+
+  \[
+  \frac{(17 - 34.5)^2}{34.5} = 8.87
+  \]
+
+
+  \[
+  \frac{(63 - 39.5)^2}{39.5} = 13.98
+  \]
+
+
+  \[
+  \frac{(20 - 26.0)^2}{26.0} = 1.38
+  \]
+
+
+\[
+\chi^2 = 8.87 + 13.98 + 1.38 + 8.87 + 13.98 + 1.38 = 48.46
+\]
+
+
+
+\item[] Degrees of freedom :
+
+\[
+    (r - 1) \times (c - 1) = 1 \times 2 = 2
+\]
+
+
+\item[] Critical value:
+
+Table A.6, for \(\alpha = 0.05\) with degree 2: 5.991
+
+  \[
+  \chi^2 = 48.46 > 5.991
+  \]
+
+Reject \(H_0\).
+
+There is an association between coffee and gender
+
+
+
+\end{itemize}
+
+
+
+\end{document}
+

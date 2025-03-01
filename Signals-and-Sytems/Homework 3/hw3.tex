@@ -1,0 +1,242 @@
+\documentclass[10pt,a4paper, margin=1in]{article}
+\usepackage{fullpage}
+\usepackage{amsfonts, amsmath, pifont}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{tkz-euclide}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=10mm,
+ right=10mm,
+ top=10mm,
+ bottom=10mm,
+ }
+ % Write both of your names here. Fill exxxxxxx with your ceng mail address.
+ \author{
+  Kılınç, Ömer\\
+  \texttt{e2448603@ceng.metu.edu.tr}
+}
+
+\title{CENG 384 - Signals and Systems for Computer Engineers \\
+Spring 2024 \\
+Homework 3}
+\begin{document}
+\maketitle
+
+
+
+\noindent\rule{19cm}{1.2pt}
+
+\begin{enumerate}
+
+\item %write the solution of q1
+    \[ a_k = \begin{cases} 
+        -1 & \textbf{k is even} \\
+        1 & \textbf{k is odd}
+        \end{cases}
+    \]
+
+    \[ a_k = -cos(\pi k) \]
+
+    \[ -cos(\pi k) = - \frac{1}{2} e^{j \pi k} - \frac{1}{2} e^{-j \pi k} \]
+
+    \[ x(t) = (-\frac{1}{2})  \sum_{k=-\infty}^{\infty}  e^{j k(\omega_0 + \pi) t} + e^{- j k (\omega_0 - \pi) t} \]
+
+    \[\omega_0 = 2\pi / T = \pi / 2 \]
+
+    \[ x(t) = (-\frac{1}{2})  \sum_{k=-\infty}^{\infty}  e^{j k(3\pi / 2) t} + e^{- j k (\pi / 2) t} \]
+
+\item %write the solution of q2  
+	\begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q2a
+  
+    \[ a_k =  \frac{1}{4} \int^4_0 x(t) e^{-jk \omega_o t } dt \]
+    \[ a_k =  \frac{1}{4} \int^2_0 2t e^{-j k \omega_o t } dt + \frac{1}{4} \int^4_2 (4-t) e^{-j k \omega_o t }dt \]
+    \[ \textbf{By evaluating the integrals, we get:} \]
+    \[ a_k = -\dfrac{\left(jkwt+1\right)\mathrm{e}^{-jkwt}}{2j^2k^2w^2}+ \dfrac{\left(jkw\cdot\left(t-4\right)+1\right)\mathrm{e}^{-jkwt}}{4j^2k^2w^2}\]
+
+    
+    \item %write the solution of q2b
+    \[x(t)  \longleftrightarrow_{FS} a_k\]
+    \[\frac{dx(t)}{dt} \longleftrightarrow_{FS} jk\omega_o a_k\]
+
+    \[{a`}_k = jk\omega_o a_k \]
+    
+    \[ {a`}_k = -\dfrac{\left(jkwt+1\right)\mathrm{e}^{-jkwt}}{2jkw}+ \dfrac{\left(jkw\cdot\left(t-4\right)+1\right)\mathrm{e}^{-jkwt}}{4jkw} \]
+    
+    \end{enumerate}
+
+
+
+
+
+
+\item %write the solution of q3
+
+
+
+    \begin{enumerate}
+    % Write your solutions in the following items.
+
+
+    
+    
+    \item %write the solution of q3a
+    \[ a_k = \frac{1}{N}\sum_{n=0}^{N-1}x[n]e^{-jk(2\pi/N)n} \] 
+    
+    \[\textbf{a-1) Spectral coefficients of } x_1[n] = cos(\frac{\pi}{2}n)  \]
+    \[\frac{\pi}{2}N_0 = 2\pi m \rightarrow N_0 = 4\]
+    \[a_k = \frac{1}{4}\sum_{n=0}^{3}cos(\frac{\pi}{2}n)e^{-jk(\pi/2)n} \]
+    \[a_k = \frac{1}{4}(1 + 0 + (-1)e^{-jk\pi} + 0 )\]
+    \[a_k = \frac{1 - (-1)^k}{4} \]
+
+
+    \[a_k = \frac{1 - (-1)^k}{4} \]
+
+    \[ a_k = \begin{cases} 
+        0 & \textbf{k is even} \\
+        0.5 & \textbf{k is odd}
+        \end{cases}
+    \]
+
+    \[\textbf{a-2) Spectral coefficients of } x_2[n] = sin(\frac{\pi}{2}n)  \]
+    \[\frac{\pi}{2}N_0 = 2\pi m \rightarrow N_0 = 4\]
+    \[a_k = \frac{1}{4}\sum_{n=0}^{3}sin(\frac{\pi}{2}n)e^{-jk(\pi/2)n} \]
+    \[a_k = \frac{1}{4}(0 + e^{-jk(\pi/2)} + 0 - e^{-jk(3\pi/2)} )\]
+    \[a_k = \frac{ e^{-jk(\pi/2)} - e^{-jk(3\pi/2)} }{4} \]
+
+    \[\textbf{a-3) Spectral coefficients of } x_3[n] = cos(\frac{\pi}{2}n)sin(\frac{\pi}{2}n)  \]
+
+    \[ x_3[n] = 0 \text{   for all integer n.} \]
+    
+    
+    \item %write the solution of q3b
+    \[x_1(t)  \longleftrightarrow_{FS} a_k\]
+    \[x_2(t)  \longleftrightarrow_{FS} b_k\]
+    \[x(t)  \longleftrightarrow_{FS} a_k \ast b_k\]
+    \[ a_k \ast b_k = \sum_{l=0}^3 = a_l b_{k-l}\]
+    \[ = a_0b_3 + a_1b_2 + a_2b_1 + a_3b_0 \]
+    \[ = 0(b_3) + (a_1)0 + 0(b_1) + (a_3)0 \]
+    \[ = 0 \]
+    \[ \text{The result is the same due to the multiplication property.  } \]
+    \[ \text{The signal that is the multiplication of the signals in time domain has the } \]
+    \[ \text{coefficients in frequency domain which are the  } \]
+    \[ \text{convolution of the coefficients of these two signals.  } \]
+    
+    \end{enumerate}
+
+\item %write the solution of q4
+\[x_1(t) = cos(k\frac{\pi}{3}) \]
+\[x_1(t)  \longleftrightarrow_{FS} b_k\]
+\[cos(k\frac{\pi}{3}) = \frac{1}{2} e^{jk(\pi/3)} + \frac{1}{2} e^{-jk(\pi/3)}\]
+\[cos(k\frac{\pi}{3})  \rightarrow N = 6 \]
+\[b_k = \frac{1}{6}\sum_{n=0}^5x_1[n]e^{-jkn(\pi/3)} = \frac{1}{2} e^{jk(\pi/3)} + \frac{1}{2} e^{-jk(\pi/3)}\]
+\[x_1[-1] = x_1[1] = 3 \]
+
+
+\[x_2(t) = cos(k\frac{\pi}{4})\]
+\[x_2(t)  \longleftrightarrow_{FS} c_k\]
+\[cos(k\frac{\pi}{4}) = \frac{1}{2} e^{jk(\pi/4)} + \frac{1}{2} e^{-jk(\pi/4)}\]
+\[cos(k\frac{\pi}{4})  \rightarrow N = 8\]
+\[c_k = \frac{1}{8}\sum_{n=0}^7x_2[n]e^{-jkn(\pi/4)} = \frac{1}{2} e^{jk(\pi/4)} + \frac{1}{2} e^{-jk(\pi/4)} \]
+\[x_2[-1] = x_2[1] = 4 \] 
+
+\[ \textbf{By linear property:}\]
+\[ x[n] = 4\delta[n+1] + 4\delta[n-1] + 3\delta[n+3] + 3\delta[n-3] \]
+
+
+
+\item %write the solution of q5  
+    \begin{enumerate}   
+    % Write your solutions in the following items.
+    
+    
+    
+    \item %write the solution of q5a
+    \[x[n] = sin(\frac{6\pi}{13}n + \frac{\pi}{2}) = cos(\frac{6\pi}{13}n)\]
+    
+    \[\frac{6\pi}{13}N_0 = 2\pi m  \rightarrow N_0 = 13 \]
+    
+    \item %write the solution of q5b
+    \[cos(\frac{6\pi}{13}n) = \frac{1}{2} e^{j(6\pi/13)n} + \frac{1}{2} e^{-j(6\pi/13)n}\]
+
+    \[a_{-1} = a_1 = \frac{1}{2} \]
+    \[ a_k = 0 \text{ for any other integer k value.} \]
+
+    
+\begin{filecontents}{q5.dat}
+ n   xn 
+ -2  0
+ -1  0.5  
+ 0   0
+ 1  0.5
+ 2  0
+ 3  0
+ 
+\end{filecontents}
+
+\begin{figure} [h!]
+    \centering
+    \begin{tikzpicture}[scale=1.0] 
+      \begin{axis}[
+          axis lines=middle,
+          xlabel={$n$},
+          xtick={-2, -1, 0, 1 , 2},
+          ymin=-2, ymax=2,
+          xmin=-3, xmax=3,
+          every axis x label/.style={at={(ticklabel* cs:1.05)}, anchor=west,},
+          every axis y label/.style={at={(ticklabel* cs:1.05)}, anchor=south,},
+          grid,
+        ]
+        \addplot [ycomb, black, thick, mark=*] table [x={n}, y={xn}] {q5.dat};
+      \end{axis}
+    \end{tikzpicture}
+    \label{fig:q3}
+\end{figure}
+        
+    \end{enumerate} 
+    
+\item %write the solution of q6
+    \begin{enumerate}
+    % Write your solutions in the following items.
+    \item %write the solution of q6a
+    \[ H(j\omega) = (\frac{1}{4}) \frac{1}{\frac{3}{4}+j\omega }\]
+
+    \[ \textbf{Using inverse transform (by table 4.2) : }\]
+    \[ \frac{1}{(a+j\omega)}  \longleftrightarrow_{FS^{-1}} e^{-at} \mu(t) \]
+    
+    \[ h(t) = (\frac{1}{4}) e^{ (-3/4) t} \mu(t) \]
+
+    \[ h(t) = \frac{e^{ (-3/4) t} \mu(t)}{4} \]
+    
+    \item %write the solution of q6b
+
+    \[ y(t) = x(t) \ast h(t) \]
+    \[ =\int_{-\infty}^{\infty} x(\tau) e^{( (-3/4)t - \tau )} \mu(t - \tau) d\tau\]
+    \[ x(t) = e^{at} \mu(t) \]
+    \[ =\int_{-\infty}^{\infty} e^{a\tau} \mu(\tau) e^{( (-3/4)t - \tau )} \mu(t - \tau) d\tau\]
+            
+    \[ =\int_{0}^{t} e^{a\tau} e^{( (-3/4)t - \tau )} d\tau\]
+
+    \[ e^{-5t} - e^{-10t} = e^{(-3/4)t} \int_{0}^{t} e^{(a-1)\tau} d\tau\]
+    
+    
+    \end{enumerate}
+    
+\item %write the solution of q7    
+
+\end{enumerate}
+
+
+\end{document}
+
+

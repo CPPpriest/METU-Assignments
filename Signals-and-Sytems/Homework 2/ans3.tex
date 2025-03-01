@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{fullpage}
+\usepackage{amsfonts, amsmath, pifont}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{tkz-euclide}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+
+
+\usepackage[hmargin=3cm,vmargin=6.0cm]{geometry}
+%\topmargin=0cm
+\topmargin=-2cm
+\addtolength{\textheight}{6.5cm}
+\addtolength{\textwidth}{2.0cm}
+%\setlength{\leftmargin}{-5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+
+%misc libraries goes here
+
+
+
+
+\begin{document}
+
+\section*{Answer 3}
+
+\[ y[n] = \frac{1}{5}x[n-1] + x[n] \]
+
+\subsection*{a)} 
+
+\[ y[n] = \frac{1}{5}x[n-1] + x[n] \]
+
+\[ \textbf{By feeding the system with unit impulse signal } x[n] = \delta [n] \]
+\[ h[n] = \frac{1}{5} \delta[n-1] + \delta[n] \]
+
+\subsection*{b)} 
+
+\[ \textbf{Convoluting h[n] with } x[n] = \delta [n-2] \]
+\[ \delta [n-2] * h[n] = \frac{1}{5} \delta[n-3] + \delta[n-2] \]
+
+\[ \textbf{ Resulting in a time shift of impulse response.} \]
+\[ \textbf{ Output y[n] : } y[n] =  \frac{1}{5} \delta[n-3] + \delta[n-2] \]
+
+\subsection*{c)}
+
+
+\subsection*{d)}
+
+\[ h[n] \neq K \delta [n] \]
+\[ \textbf{ System has memory.} \]
+\subsection*{e)}
+
+\end{document}
+
+

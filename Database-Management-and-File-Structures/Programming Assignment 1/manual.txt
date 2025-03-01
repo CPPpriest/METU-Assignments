@@ -1,0 +1,19 @@
+Here is your MySQL account:
+
+username: e2448603 password: L&8mFyi2Zs52 schema(database): db2448603
+
+Host: 144.122.71.128
+Port: 8080
+
+
+#Open mysql server
+mysql -h 144.122.71.128 -u e2448603 -P8080 -p db2448603
+
+
+#extract .tar.gz file
+tar -xvf source_files_v3.tar.gz
+
+
+#open inteliJ
+cd /home/priest/Downloads/idea-IC-233.11799.241/bin
+./idea.sh

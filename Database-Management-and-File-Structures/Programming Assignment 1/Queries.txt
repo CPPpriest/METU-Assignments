@@ -1,0 +1,239 @@
+-----------------------------------------------------------------------------------------
+###(3.1) Creating the database tables
+
+CREATE TABLE IF NOT EXISTS Factory( 	factoryId INT, 
+					factoryName TEXT, 
+					factoryType TEXT, 
+					country TEXT, 
+					PRIMARY KEY (factoryId)		);
+
+CREATE TABLE IF NOT EXISTS Employee( 	employeeId INT, 
+					employeeName TEXT, 
+					department TEXT, 
+					salary INT, 
+					PRIMARY KEY (employeeId)	);
+
+CREATE TABLE IF NOT EXISTS Works_In( 	factoryId INT, 
+					employeeId INT, 
+					startDate DATE, 
+					PRIMARY KEY (factoryId, employeeId), 
+					FOREIGN KEY (factoryId) REFERENCES Factory(factoryId) 
+						ON DELETE CASCADE 
+						ON UPDATE CASCADE, 
+					FOREIGN KEY (employeeId) REFERENCES Employee(employeeId) 
+						ON DELETE CASCADE 
+						ON UPDATE CASCADE	);
+
+CREATE TABLE IF NOT EXISTS Product( 	productId INT, 
+					productName TEXT, 
+					productType TEXT, 
+					PRIMARY KEY (productId)  	);
+        
+CREATE TABLE IF NOT EXISTS Produce( 	factoryId INT, 
+					productId INT, 
+					amount INT, 
+					productionCost INT, 
+					PRIMARY KEY (factoryId, productId), 
+					FOREIGN KEY (factoryId) REFERENCES Factory(factoryId) 
+						ON DELETE CASCADE 
+						ON UPDATE CASCADE, 
+					FOREIGN KEY (productId) REFERENCES Product(productId) 
+						ON DELETE CASCADE 
+						ON UPDATE CASCADE 	);
+
+CREATE TABLE IF NOT EXISTS Shipment( 	factoryId INT, 
+					productId INT, 
+					amount INT,  
+					pricePerUnit INT, 
+					PRIMARY KEY (factoryId, productId), 
+					FOREIGN KEY (factoryId) REFERENCES Factory(factoryId) 
+						ON DELETE CASCADE 
+						ON UPDATE CASCADE, 
+					FOREIGN KEY (productId) REFERENCES Product(productId) 
+						ON DELETE CASCADE 
+						ON UPDATE CASCADE 	);
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.2) Inserting data into tables
+
+INSERT INTO Factory VALUES(?, ?, ?, ?);
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.3) Find all factories that are located in a particular country.
+
+SELECT DISTINCT * FROM Factory F WHERE F.country = ? ;
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.4) Find factories without any working employees.
+
+SELECT DISTINCT *
+FROM Factory F
+WHERE F.factoryId NOT IN(
+	SELECT DISTINCT W.factoryId
+	FROM Works_In W);
+
+
+-----------------------------------------------------------------------------------------
+###(3.5) Find factories that produce all products for a particular productType.
+
+SELECT DISTINCT *
+FROM Factory F
+WHERE NOT EXISTS(
+
+	SELECT DISTINCT PCT.productId
+	FROM Product PCT
+	WHERE PCT.productType = __GivenProductType__
+	
+	EXCEPT 
+	
+  	SELECT DISTINCT PDC.productId 
+	FROM Produce PDC
+	WHERE PDC.factoryId = F.factoryId	
+	);
+
+
+-----------------------------------------------------------------------------------------
+###(3.6) Find the products that are produced in a particular factory but don’t have any shipment from that factory.
+
+
+
+
+
+SELECT DISTINCT P.productId, P.productName, P.productType
+FROM Factory F , Product P
+WHERE  IN (
+	
+	SELECT DISTINCT PDC.productId	
+	FROM Produce PDC
+	WHERE PDC.FactoryId = F.FactoryId
+	
+	EXCEPT 
+
+	SELECT DISTINCT S.productId
+	FROM Shipment S
+	WHERE S.factoryId = F.factoryId
+);
+
+-----------------------------------------------------------------------------------------
+###(3.7) For a given factoryId and department, find the average salary of the employees working in that factory and that specific department.
+
+SELECT AVG(E.salary)
+FROM Employee E, Works_In W
+WHERE 	W.employeeId = E.employeeId 
+	AND W.factoryId = __GivenFacId__   
+	AND E.department = __GivenDepartment__; 
+
+
+-----------------------------------------------------------------------------------------
+###(3.8) For each factory find the most profitable products. Consider the amount in profit calculation.
+Profit = shipmentAmount * pricePerUnit - producedAmount * productionCost.
+
+Given schemas
+• Produce(factoryId:int, productId:int, amount: int, productionCost:int)
+• Shipment(factoryId:int, productId:int, amount: int, pricePerUnit:int)
+
+
+
+SELECT DISTINCT F.factoryId, P.productId, P.productName, P.productType, MAX(SH.amount * SH.pricePerUnit - PE.amount * PE.productionCost) AS profit
+FROM Factory F, Product P, Shipment SH, Produce PE
+WHERE 	    F.factoryId = SH.factoryId
+	AND F.factoryId = PE.factoryId
+	AND P.productId = SH.productId
+	AND P.productId = PE.productId
+GROUP BY F.factoryId ;
+
+
+
+SELECT DISTINCT F.factoryId, P.productId, P.productName, P.productType, MAX(SH.amount * SH.pricePerUnit - PE.amount * PE.productionCost) AS profit FROM Factory F, Product P, Shipment SH, Produce PE WHERE F.factoryId = SH.factoryId AND F.factoryId = PE.factoryId AND P.productId = SH.productId AND P.productId = PE.productId GROUP BY F.factoryId ;
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.9) For each product, find the factories that gather the highest profit for that product.
+Profit = shipmentAmount * pricePerUnit - producedAmount * productionCost.
+
+SELECT DISTINCT F.factoryId, P.productId, P.productName, P.productType, MAX(SH.amount * SH.pricePerUnit - PE.amount * PE.productionCost) AS profit
+FROM Factory F, Product P, Shipment SH, Produce PE
+WHERE 	    F.factoryId = SH.factoryId
+	AND F.factoryId = PE.factoryId
+	AND P.productId = SH.productId
+	AND P.productId = PE.productId
+GROUP BY P.productId ;
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.10) For each department, find all employees that are paid under the average salary for that department. 
+You consider the employees that do not work earning ”0”
+
+
+SELECT DISTINCT E.employeeId, E.employeeName, E.department, E.salary
+FROM Employee E
+WHERE E.salary <= (	
+	SELECT AVG(EMP.salary)
+	FROM Employee EMP
+	WHERE EMP.department = E.department
+); 
+
+
+SELECT DISTINCT E.employeeId, E.employeeName, E.department, E.salary FROM Employee E WHERE E.SELECT <= ( salary AVG(EMP.salary) FROM Employee EMP WHERE EMP.department = E.department); 
+
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.11) For the products of given productType, increase the productionCost of every unit by a given percentage
+
+UPDATE Produce P
+SET P.productionCost = P.productionCost + P.productionCost * __GivenPercentage__
+WHERE P.productId IN(
+	SELECT DISTINCT PRDCT.productId
+	FROM Product PRDCT
+	WHERE PRDCT.productType = __GivenProductType__
+	);
+	  
+
+UPDATE Produce P SET P.productionCost = P.productionCost + P.productionCost * ? WHERE P.productId IN( SELECT DISTINCT PRDCT.productId FROM Product PRDCT WHERE PRDCT.productType =  ? );
+
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.12) Deleting all employees that have not started working since the given date.
+
+DELETE
+FROM Employee E
+WHERE E.employeeId IN (
+	SELECT DISTINCT W.employeeId
+	FROM Works_In W
+	WHERE W.startDate > __GivenDate__
+);
+
+
+DELETE FROM Employee E WHERE E.employeeId IN ( SELECT DISTINCT W.employeeId FROM Works_In W 	WHERE W.startDate > ? );
+
+
+
+-----------------------------------------------------------------------------------------
+###(3.13) Dropping the database tables
+
+DROP TABLE IF EXISTS Shipment;
+DROP TABLE IF EXISTS Produce;
+DROP TABLE IF EXISTS Works_In;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Employee;
+DROP TABLE IF EXISTS Factory;
+
+
+
+
+
+
+
+

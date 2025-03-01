@@ -1,0 +1,89 @@
+binary_search:
+	
+	pushq   %rbx
+	
+	irmovq $0x1,%r10
+	irmovq $0x2,%r11
+	irmovq  $0x8,%r12
+	irmovq  $0x20,%r13
+	
+   	rrmovq %rsi, %rax
+	subq %rdi, %rax
+	dvvq $0x8, %rax
+	dvvq $0x2, %rax
+  	mllq $0x8, %rax
+  	addq %rdi, %rax
+  	
+  	#%rax = mid
+  	
+  	rrmovq %rdi,%r9
+  	subq %rsi,%r9
+  	jge condition_1
+  	
+  	mrmovq (%rax), %r9
+  	subq %rdx,%r9
+  
+  	je condition_2
+  	
+  	jl condition_3
+  	  	
+  	jmp condition_4
+	
+condition_1:
+	irmovq $0xffffffffffffffff,%rax
+	popq %rbx
+	ret	
+
+condition_2:    
+	subq %rdi, %rax
+	dvvq $0x8, %rax
+	addq $0x1, %rax
+	popq %rbx
+	ret	
+
+condition_3:
+
+	#%rax = mid
+	
+	pushq %rdi
+	pushq %rax	#mid
+	pushq %rsi
+	
+	
+	addq $0x8, %rax		#%rax = mid+1
+	rrmovq %rax, %rdi   #%rdi = mid+1
+	
+	call binary_search
+	
+	#%rax = tmp
+	
+	popq %rsi	# end
+	popq %rcx	# mid
+	popq %rdi	# begin
+	
+	irmovq $-1, %r9
+  	andq %rax,%r9
+  	
+	je condition_1	#tmp == -1
+	
+	
+	# tmp != -1
+	
+	subq %rdi, %rcx	# mid - begin
+	addq %rcx,%rax 	# tmp + mid - begin
+	
+	addq $0x8, %rax	# tmp + mid - begin + 8
+	
+	dvvq $0x8,%rax
+	
+	popq %rbx
+	ret
+	
+condition_4:
+	rrmovq %rax,%rsi
+	call binary_search
+	popq %rbx
+	ret
+	
+	
+	

@@ -1,0 +1,14 @@
+This video demonstrates how to solve a simplified example for the CENG 331 Bomb Lab. It explains the basics of disassembling executables and using GDB for reverse engineering.
+
+Edited with Kdenlive.
+Transition soundtrack: https://www.youtube.com/watch?v=YlpD6W98Qh4&t=0s
+
+TIMESTAMPS
+00:00 Intro
+00:32 GDB Usage
+02:30 GDB User Interface (TUI)
+03:50 objdump
+04:48 Safety Breakpoint
+05:34 Phase 0
+09:47 Phase 1
+13:00 Phase 2

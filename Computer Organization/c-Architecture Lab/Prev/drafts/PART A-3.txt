@@ -1,0 +1,71 @@
+merge:
+    
+    irmovq $0x8,%r10
+
+test1:
+	rrmovq %rdi,%r9
+	subq %rsi,%r9
+	#(begin1 - end1)
+	jge test3
+	
+	rrmovq %rdx,%r9
+	subq %rcx,%r9
+	#(begin2 - end2)
+	jge test2
+	
+	mrmovq (%rdi),%r12
+	mrmovq (%rdx),%r13
+	mrmovq (%r8),%r14
+	
+	# *begin1 - *begin2
+	rrmovq %r12,%r9
+	subq %r13,%r9
+	jl	condition
+	
+	rmmovq %r13, (%r8)
+	addq %r10, %rdx
+	addq %r10, %r8
+	
+	jmp test1
+	
+condition:
+	rmmovq %r12, (%r8)
+	addq %r10, %rdi
+	addq %r10, %r8
+	
+	jmp test1
+
+test2:
+	rrmovq %rdi,%r9
+	subq %rsi,%r9
+	#(begin1 - end1)
+	jge test3
+
+	mrmovq (%rdi),%r12
+	mrmovq (%rdx),%r13
+	mrmovq (%r8),%r14
+	
+	rmmovq %r12, (%r8)
+	addq %r10, %rdi
+	addq %r10, %r8
+	
+	jmp test2
+	
+test3:
+	rrmovq %rdx,%r9
+	subq %rcx,%r9
+	#(begin2 - end2)
+	jge term
+	
+	mrmovq (%rdi),%r12
+	mrmovq (%rdx),%r13
+	mrmovq (%r8),%r14
+	
+	rmmovq %r13, (%r8)
+	addq %r10, %rdx
+	addq %r10, %r8
+	
+	jmp test3
+
+term:
+	ret	

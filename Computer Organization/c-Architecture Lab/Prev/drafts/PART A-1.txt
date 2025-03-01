@@ -1,0 +1,84 @@
+# NAME SURNAME ID
+.pos 0x0
+init:
+    irmovq stack, %rsp
+    irmovq $6, %rdx
+    irmovq array_begin, %rdi
+    irmovq array_end, %rsi
+    call binary_search
+    halt
+
+#implement your code below (DO NOT CHANGE/REMOVE THIS COMMENT)
+
+binary_search:
+	
+	irmovq $0x2, %r10
+	irmovq $0x8, %r11
+	irmovq $0x1, %r13
+	
+	
+	rrmovq	%rdi,%r8
+
+test:
+	xorq %rcx,%rcx
+	rrmovq %rsi, %rcx
+	subq %rdi, %rcx
+	
+	jg loop
+	
+	irmovq $-1, %rax
+	ret
+	
+loop:     
+	dvvq	%r10, %rcx
+	rrmovq 	%rcx, %r14
+	modq	%r11, %r14
+	subq	%r14, %rcx
+	
+	rrmovq  %rdi,%rax
+	addq	%rcx, %rax
+	
+	xorq %r9,%r9
+	mrmovq (%rax),%r9
+	subq	%rdx, %r9
+	
+	je L2
+	jl L3
+	jg L4
+	
+L2:
+	subq %r8, %rax	
+	dvvq %r11, %rax
+	addq %r13, %rax
+	ret
+	
+L3:
+	rrmovq %rax, %rdi
+	addq %r11, %rdi
+	jmp test
+	
+L4:
+	rrmovq %rax, %rsi	
+	jmp test	
+	
+	
+
+#implement your code above (DO NOT CHANGE/REMOVE THIS COMMENT)
+
+.pos 0x1008
+array_begin:
+    .quad 1
+    .quad 2
+    .quad 3
+    .quad 5
+    .quad 6
+    .quad 7
+    .quad 9
+    .quad 11
+array_end:
+    .quad 0
+.pos 0x1F00
+stack:
+    .quad 0
+
+

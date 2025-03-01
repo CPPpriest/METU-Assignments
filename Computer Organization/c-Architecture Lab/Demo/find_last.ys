@@ -1,0 +1,37 @@
+.pos 0x0
+	irmovq stack, %rsp
+	irmovq head, %rdi
+	call find_last
+	halt
+	
+find_last:
+	andq %rdi, %rdi
+	je Done
+loop:
+	mrmovq 8(%rdi), %rcx
+	andq %rcx, %rcx
+	je Done
+	rrmovq %rcx, %rdi
+        jmp loop	
+	
+Done:
+	rrmovq %rdi, %rax
+	ret
+	
+	
+.pos 0x300
+head:
+	.quad 4
+	.quad node1
+node1:
+	.quad 0
+	.quad node2
+node2:
+	.quad 9
+	.quad node3
+node3:
+	.quad 8
+	.quad 0
+	
+.pos 0x1f00
+stack:

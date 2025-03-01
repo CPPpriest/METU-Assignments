@@ -1,0 +1,132 @@
+# OMER KILINC 2448603
+.pos 0x0
+init:
+    irmovq stack, %rsp
+    irmovq $6, %rdx
+    irmovq array_begin, %rdi
+    irmovq array_end, %rsi
+    call binary_search
+    halt
+
+#implement your code below (DO NOT CHANGE/REMOVE THIS COMMENT)
+
+binary_search:
+	irmovq $0x8,%r10
+	irmovq $0x2,%r11
+	irmovq $0x1,%r12
+	
+   	rrmovq %rsi, %rax
+	subq %rdi, %rax
+	dvvq %r10, %rax
+	dvvq %r11, %rax
+  	mllq %r10, %rax
+  	addq %rdi, %rax
+
+
+  	xorq %r9,%r9
+  	rrmovq %rdi,%r9
+  	subq %rsi,%r9
+  	jl condition_1
+  	
+  	irmovq $-1,%rax
+	ret
+	
+condition_1:
+	xorq %r9,%r9
+  	mrmovq (%rax), %r9
+  	subq %rdx,%r9
+  
+  	je condition_2
+  	
+  	
+  	xorq %r9,%r9
+  	mrmovq (%rax), %r9
+  	subq %rdx,%r9
+  	
+  	jl condition_3
+  	
+  	
+  	xorq %r9,%r9
+  	mrmovq (%rax), %r9
+  	subq %rdx,%r9
+  	
+  	jg condition_4
+		
+
+condition_2:    
+	subq %rdi, %rax
+	dvvq %r10, %rax
+	addq %r12, %rax
+	
+	ret	
+
+condition_3:
+
+	#%rax = mid
+	
+	pushq %rsi
+	pushq %rax	#mid
+	pushq %rdi
+	
+	
+	addq %r10, %rax		
+	rrmovq %rax, %rdi   
+	
+	call binary_search
+	
+	popq %rdi	# end
+	popq %rcx	# mid
+	popq %rsi	# begin
+	
+	
+	rrmovq %rax, %r14
+  	irmovq $-1, %r9
+  	subq %r9, %r14
+	 	
+	jne condition_3_2
+	
+	ret
+	
+	
+
+condition_3_2:
+	rrmovq %rcx,%r9
+	subq %rdi, %r9
+	dvvq %r10, %r9
+	
+	addq %r9, %rax
+	
+	addq %r12, %rax
+	
+	
+
+	ret
+
+condition_4:
+
+	rrmovq %rax,%rsi
+	
+	call binary_search
+	
+	ret
+	
+
+#implement your code above (DO NOT CHANGE/REMOVE THIS COMMENT)
+
+.pos 0x1008
+array_begin:
+    .quad 1
+    .quad 2
+    .quad 3
+    .quad 5
+    .quad 6
+    .quad 7
+    .quad 9
+    .quad 11
+array_end:
+    .quad 0
+.pos 0x1F00
+stack:
+    .quad 0
+
+

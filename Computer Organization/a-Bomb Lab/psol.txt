@@ -1,0 +1,5 @@
+Your text is: Take the risk or lose the chance.
+2 5 10 17 26 37
+4 7 843
+39 10
+FAEBDC

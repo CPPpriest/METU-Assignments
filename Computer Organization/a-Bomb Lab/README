@@ -1,0 +1,6 @@
+The binary files were created using the following commands on Ubuntu 18.04:
+
+gcc bomb.c -o bomb -O1 -fno-stack-protector
+gcc bomb.c -o bomb-sp -O1
+
+Note that the real assignment is compiled without -fno-stack-protector flag.

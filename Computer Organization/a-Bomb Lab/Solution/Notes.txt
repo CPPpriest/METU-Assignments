@@ -1,0 +1,83 @@
+
+Terminal Commands
+-----------------
+
+strings bomb		(printable strings)
+objdump -d bomb		(functions, global variables...)
+objdump -t bomb		(symbol table)
+
+nano bomb.c
+
+gdb bomb
+
+
+
+GDB Commands
+------------
+
+set pagination off
+
+b explode_bomb
+b main
+b *0x7865742072756f59
+b phase_0
+clear <breakpoint_numer>
+info b
+
+disas main
+disas phase_1
+
+ni	
+run
+kill
+c
+
+print $rdi
+print /d $rdi
+
+x /d $rdi
+x /s $rdi
+
+
+
+
+Assembly
+--------
+
+​%rdi​,​ ​%rsi​,​ ​%rdx​,​ ​%rcx​,​ ​%r8​,​ ​and​ ​%r9​​ ​are​ ​used​ ​to​ ​pass​ ​the​ ​first​ ​six​ ​integer
+or​ ​pointer​ ​parameters​ ​to​ ​called​ ​functions.​
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

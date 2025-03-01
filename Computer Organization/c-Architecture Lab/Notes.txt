@@ -1,0 +1,91 @@
+Programs
+	bison	//parser
+	flex	//lexer
+	
+Packages for GUI (Debugger)
+	tk
+	tcl
+	
+yis  -> Y86-64 Simulator
+Shows the abstract processor's state for given Y86-64 instructions
+
+yas -> Y86-64 Assembler
+Assembly to Object Code
+
+
+handout/sim/misc
+contains
+	yis
+	yas
+	
+handout/sim/sample_files
+contains 
+	higher level (C) code for implementations
+	templates to be completed for the assignment
+	
+
+
+	
+.ys -> assembly file
+.yo -> obj file
+
+assemble: yas fileName.ys 
+output: fileName.yo
+simulate: yis fileName.yo
+
+
+to assemble:
+------------
+-binary_search
+/home/priest/Desktop/archlab-handout/sim/misc/yas  /home/priest/Desktop/archlab-handout/sim/sample_files/binary_search_template.ys
+
+-merge
+/home/priest/Desktop/archlab-handout/sim/misc/yas  /home/priest/Desktop/archlab-handout/sim/sample_files/merge_template.ys
+
+-switch
+/home/priest/Desktop/archlab-handout/sim/misc/yas  /home/priest/Desktop/archlab-handout/sim/sample_files/switch8_slow.ys
+
+
+
+to simulate:
+------------
+-binary_search
+/home/priest/Desktop/archlab-handout/sim/misc/yis  /home/priest/Desktop/archlab-handout/sim/sample_files/binary_search_template.yo
+
+-merge
+/home/priest/Desktop/archlab-handout/sim/misc/yis  /home/priest/Desktop/archlab-handout/sim/sample_files/merge_template.yo
+
+-switch
+/home/priest/Desktop/archlab-handout/sim/misc/yis  /home/priest/Desktop/archlab-handout/sim/sample_files/switch8_slow.yo
+
+
+---simulator shows the changes to the registers and memory at the end of the execution
+
+Simulate with seq
+Sequential simulator
+Allows to examine the process step by step
+
+/home/priest/Desktop/archlab-handout/sim/seq
+ssim: the simulator for seq
+
+
+
+High level to x86-64 assembly
+gcc -0g -c imp.c
+objdump -d imp.o
+
+
+--testing
+
+--debugging
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+
+phase 1
+------- 
+Your text is: Take the risk or lose the chance.
+
+
+phase 2
+-------
+2 5 10 17 26 37
+
+
+phase 3
+-------
+4 _ _ 
+
